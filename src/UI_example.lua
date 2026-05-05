@@ -1,8 +1,8 @@
 local repo = 'https://raw.githubusercontent.com/triple7distro/goldchains/main/'
 
-local Library = loadstring(game:HttpGet(repo .. 'libraries/UI_library.lua'))()
-local ThemeManager = loadstring(game:HttpGet(repo .. 'libraries/UI_theme.lua'))()
-local SaveManager = loadstring(game:HttpGet(repo .. 'libraries/UI_save.lua'))()
+local Library = loadstring(game:HttpGet(repo .. 'src/UI_library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'src/UI_theme.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'src/UI_save.lua'))()
 
 local Window = Library:CreateWindow({
     -- Set Center to true if you want the menu to appear in the center
