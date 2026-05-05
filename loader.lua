@@ -59,3 +59,5 @@ else
     game:GetService("Players").LocalPlayer:Kick("game not supported")
     return
 end
+
+-- DO NOT TOUCH ANYTHING HERE, ITS FINISHED AND FUNCTIONAL
