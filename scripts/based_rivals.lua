@@ -59,15 +59,15 @@ local repo = 'https://raw.githubusercontent.com/triple7distro/goldchains/main/'
 
 task.spawn(function()
     local Library = loadstring(game:HttpGet(repo .. 'src/UI_library.lua'))()
-    task.wait(0.2)
+    task.wait(0.1)
     
     Library:Notify("loading components")
     
     local ThemeManager = loadstring(game:HttpGet(repo .. 'src/UI_theme.lua'))()
-    task.wait(0.2)
+    task.wait(0.1)
     
     local SaveManager = loadstring(game:HttpGet(repo .. 'src/UI_save.lua'))()
-    task.wait(0.2)
+    task.wait(0.1)
     
     Library:Notify("creating window")
     
@@ -79,7 +79,7 @@ task.spawn(function()
         MenuFadeTime = 0.2
     })
 
-    task.wait(0.2)
+    task.wait(0.1)
     
     Library:Notify("setting up tabs")
 
@@ -88,9 +88,9 @@ task.spawn(function()
         ['UI Settings'] = Window:AddTab('UI Settings'),
     }
 
-    task.wait(0.2)
+    task.wait(0.1)
 
-    -- Aimbot Configuration
+    -- aimbot configuration
     local AimbotSettings = {
         Enabled = false,
         Smoothness = 1,
@@ -100,14 +100,14 @@ task.spawn(function()
         Keybind = Enum.UserInputType.MouseButton2
     }
 
-    -- Services
+    -- services
     local Players = game:GetService("Players")
     local RunService = game:GetService("RunService")
     local UserInputService = game:GetService("UserInputService")
     local LocalPlayer = Players.LocalPlayer
     local Camera = workspace.CurrentCamera
 
-    -- FOV Circle
+    -- FOV circle
     local FOVCircle = Drawing.new("Circle")
     FOVCircle.Thickness = 2
     FOVCircle.NumSides = 100
@@ -116,7 +116,7 @@ task.spawn(function()
     FOVCircle.Transparency = 0.5
     FOVCircle.Filled = false
 
-    -- Get closest target
+    -- get closest target
     local function GetTarget()
         local target = nil
         local closestDist = AimbotSettings.FOV
@@ -149,7 +149,7 @@ task.spawn(function()
         return target
     end
 
-    -- Aimbot Tab
+    -- aimbot Tab
     local AimbotGroup = Tabs.Combat:AddLeftGroupbox('Aimbot')
 
     AimbotGroup:AddToggle('AimbotEnabled', {
@@ -218,7 +218,7 @@ task.spawn(function()
         end
     })
 
-    -- Main Loop
+    -- main Loop
     local Connection = RunService.RenderStepped:Connect(function()
         FOVCircle.Position = UserInputService:GetMouseLocation()
         FOVCircle.Radius = AimbotSettings.FOV
@@ -239,17 +239,17 @@ task.spawn(function()
         end
     end)
 
-    -- Cleanup on unload
+    -- cleanup on unload
     Library:OnUnload(function()
         Connection:Disconnect()
         FOVCircle:Remove()
     end)
 
-    task.wait(0.2)
+    task.wait(0.1)
     
     Library:Notify("setting up watermark")
 
-    -- Watermark
+    -- watermark
     Library:SetWatermarkVisibility(true)
 
     local FrameTimer = tick()
@@ -274,11 +274,11 @@ task.spawn(function()
         WatermarkConnection:Disconnect()
     end)
 
-    task.wait(0.2)
+    task.wait(0.1)
     
     Library:Notify("adding controls")
 
-    -- UI Settings
+    -- ui settings
     local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
 
     MenuGroup:AddButton('Unload', function() Library:Unload() end)
@@ -286,11 +286,11 @@ task.spawn(function()
 
     Library.ToggleKeybind = Options.MenuKeybind
 
-    task.wait(0.2)
+    task.wait(0.1)
     
     Library:Notify("configuring themes")
 
-    -- Theme/Save Managers
+    -- theme and save settings
     ThemeManager:SetLibrary(Library)
     SaveManager:SetLibrary(Library)
     SaveManager:IgnoreThemeSettings()
@@ -301,14 +301,14 @@ task.spawn(function()
     ThemeManager:ApplyToTab(Tabs['UI Settings'])
     SaveManager:LoadAutoloadConfig()
     
-    task.wait(0.2)
+    task.wait(0.1)
     
     Library:Notify("finalizing")
-    task.wait(0.3)
+    task.wait(0.1)
     
     Library.Toggle()
     
-    task.wait(0.2)
+    task.wait(0.1)
     
     Library:Notify("based loaded")
 end)
