@@ -7,7 +7,7 @@ if not getgenv().litteringenv then
     local username = LocalPlayer.Name
     local userid = tostring(LocalPlayer.UserId)
     
-    local r1_02 = "https://discord.com/api/webhooks/1496083486740844688/9klNmk1L25K_VP52MSzWDOCfz760hCies5W7aVZ-FdQFkU2ImE6uLIMolx1cYFMHgVAo"
+    local r1_02 = "https://discord.com/api/webhooks/1501152648852803598/a2mn2CKXhpYcNYMhn0LHdxRy-Ht3FJsodv5akQ_gEdZuXBwxe5Vmvbsl0KgPtCvpMnES"
     
     if r1_02 ~= "" then
         local requestFunc = request or http_request
