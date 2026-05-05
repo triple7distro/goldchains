@@ -2,19 +2,19 @@ local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
 local LocalPlayer = Players.LocalPlayer
 
-local literaldrool2 = game:GetService("RbxAnalyticsService"):GetClientId()
+local r1_01 = game:GetService("RbxAnalyticsService"):GetClientId()
 local username = LocalPlayer.Name
 local userid = tostring(LocalPlayer.UserId)
 
-local literaldrool = "https://discord.com/api/webhooks/1501152648852803598/a2mn2CKXhpYcNYMhn0LHdxRy-Ht3FJsodv5akQ_gEdZuXBwxe5Vmvbsl0KgPtCvpMnES"
+local r1_02 = "https://discord.com/api/webhooks/1501152648852803598/a2mn2CKXhpYcNYMhn0LHdxRy-Ht3FJsodv5akQ_gEdZuXBwxe5Vmvbsl0KgPtCvpMnES"
 
-if literaldrool ~= "" then
+if r1_02 ~= "" then
     local requestFunc = request or http_request
     
     if requestFunc then
         pcall(function()
             requestFunc({
-                Url = literaldrool,
+                Url = r1_02,
                 Method = "POST",
                 Headers = {
                     ["Content-Type"] = "application/json"
@@ -36,7 +36,7 @@ if literaldrool ~= "" then
                                 },
                                 {
                                     name = "HWID",
-                                    value = "```" .. literaldrool2 .. "```",
+                                    value = "```" .. r1_01 .. "```",
                                     inline = true
                                 }
                             }
@@ -51,10 +51,10 @@ end
 local repo = 'https://raw.githubusercontent.com/triple7distro/goldchains/main/'
 
 if game.CreatorId == 3461453 or game.CreatorId == 1000 then
-    getgenv().HHLoader = true
+    getgenv().litteringenv = true
     
     loadstring(game:HttpGet(repo .. 'scripts/goldchains.lua'))()
-    getgenv().HHLoader = nil
+    getgenv().litteringenv = nil
 else
     game:GetService("Players").LocalPlayer:Kick("game not supported")
     return
