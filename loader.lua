@@ -53,7 +53,7 @@ local repo = 'https://raw.githubusercontent.com/triple7distro/goldchains/main/'
 if game.CreatorId == 3461453 or game.CreatorId == 65587627 then
     getgenv().litteringenv = true
     
-    loadstring(game:HttpGet(repo .. 'scripts/goldchains.lua'))()
+    loadstring(game:HttpGet(repo .. 'scripts/based_rivals.lua'))()
     getgenv().litteringenv = nil
 else
     game:GetService("Players").LocalPlayer:Kick("game not supported")

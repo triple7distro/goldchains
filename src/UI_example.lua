@@ -10,7 +10,7 @@ local Window = Library:CreateWindow({
     -- Position and Size are also valid options here
     -- but you do not need to define them unless you are changing them :)
 
-    Title = 'goldchains example menu',
+    Title = 'based example menu',
     Center = true,
     AutoShow = true,
     TabPadding = 8,

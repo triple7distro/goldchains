@@ -1,6 +1,6 @@
 local httpService = game:GetService('HttpService')
 local ThemeManager = {} do
-	ThemeManager.Folder = 'goldchains'
+	ThemeManager.Folder = 'based'
 
 	ThemeManager.Library = nil
 	ThemeManager.BuiltInThemes = {
