@@ -1,4 +1,4 @@
-local repo = 'https://raw.githubusercontent.com/triple7distro/triple7/main/'
+local repo = 'https://raw.githubusercontent.com/triple7distro/goldchains/main/'
 
 local Library = loadstring(game:HttpGet(repo .. 'libraries/UI_library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'libraries/UI_theme.lua'))()

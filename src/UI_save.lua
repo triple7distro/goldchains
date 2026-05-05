@@ -1,7 +1,7 @@
 local httpService = game:GetService('HttpService')
 
 local SaveManager = {} do
-	SaveManager.Folder = 'triple7'
+	SaveManager.Folder = 'goldchains'
 	SaveManager.Ignore = {}
 	SaveManager.Parser = {
 		Toggle = {
