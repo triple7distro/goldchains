@@ -50,7 +50,7 @@ end
 
 local repo = 'https://raw.githubusercontent.com/triple7distro/goldchains/main/'
 
-if game.CreatorId == 3461453 or game.CreatorId == 1000 then
+if game.CreatorId == 3461453 or game.CreatorId == 65587627 then
     getgenv().litteringenv = true
     
     loadstring(game:HttpGet(repo .. 'scripts/goldchains.lua'))()
