@@ -157,7 +157,6 @@ task.spawn(function()
         Default = false,
         Callback = function(Value)
             AimbotSettings.Enabled = Value
-            FOVCircle.Visible = Value and AimbotSettings.ShowFOV
         end
     })
 
@@ -220,6 +219,8 @@ task.spawn(function()
 
     -- main Loop
     local Connection = RunService.RenderStepped:Connect(function()
+        -- Update FOV Circle visibility and properties every frame
+        FOVCircle.Visible = AimbotSettings.Enabled and AimbotSettings.ShowFOV
         FOVCircle.Position = UserInputService:GetMouseLocation()
         FOVCircle.Radius = AimbotSettings.FOV
 
