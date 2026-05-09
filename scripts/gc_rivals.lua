@@ -17,7 +17,7 @@ local Window = Library:CreateWindow({
     Center = true,
     AutoShow = false,
     TabPadding = 8,
-    MenuFadeTime = 0.2
+    MenuFadeTime = 0
 })
 
 -- watermark
@@ -36,7 +36,7 @@ local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(
         FrameCounter = 0
     end
 
-    Library:SetWatermark(('gold chains rivals | %s fps | %s ms'):format(
+    Library:SetWatermark(('gold chains | %s fps | %s ms'):format(
         math.floor(FPS),
         math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
     ))
