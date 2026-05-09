@@ -62,7 +62,7 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'src/UI_theme.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'src/UI_save.lua'))()
 
 local Window = Library:CreateWindow({
-    Title = 'based rivals',
+    Title = 'gold chains rivals',
     Center = true,
     AutoShow = false,
     TabPadding = 8,
@@ -85,7 +85,7 @@ local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(
         FrameCounter = 0
     end
 
-    Library:SetWatermark(('based rivals | %s fps | %s ms'):format(
+    Library:SetWatermark(('gold chains rivals | %s fps | %s ms'):format(
         math.floor(FPS),
         math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
     ))
