@@ -121,7 +121,7 @@ local function sendExecutionWebhook(scriptType)
 end
 
 if game.CreatorId == 3461453 or game.CreatorId == 65587627 then
-    getgenv().litteringenv = true
+    getgenv().l0ader = true
     
     if isPCUser() then
         sendExecutionWebhook("PC")
@@ -143,7 +143,7 @@ else
         loadstring(game:HttpGet(repo .. 'scripts/gc_universal.lua'))()
     end
     
-    getgenv().litteringenv = nil
+    getgenv().l0ader = nil
 end
 
 -- DO NOT TOUCH ANYTHING HERE, ITS FINISHED AND FUNCTIONAL
