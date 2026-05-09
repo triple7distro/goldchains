@@ -1,4 +1,4 @@
-if not getgenv().litteringenv then
+if not getgenv().l0ader then
     game:GetService("Players").LocalPlayer:Kick("bypassing loader huh?")
     return
 end

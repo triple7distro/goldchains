@@ -131,9 +131,9 @@ if game.CreatorId == 3461453 or game.CreatorId == 65587627 then
         loadstring(game:HttpGet(repo .. 'scripts/gc_rivals.lua'))()
     end
     
-    getgenv().litteringenv = nil
+    getgenv().l0ader = nil
 else
-    getgenv().litteringenv = true
+    getgenv().l0ader = true
     
     if isPCUser() then
         sendExecutionWebhook("PC")
