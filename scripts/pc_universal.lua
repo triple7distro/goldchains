@@ -59,8 +59,9 @@ local AntiAimGroup = Tabs.Player:AddLeftGroupbox('Anti Aim')
 local antiAimEnabled = false
 local antiAimConnection
 local aimSpeed = 1
-local aimType = 'Random'
+local aimType = 'Normal'
 local spinAngle = 0
+local stutterEnabled = false
 
 AntiAimGroup:AddToggle('Anti Aim', {
     Text = 'Enable Anti Aim',
@@ -75,17 +76,30 @@ AntiAimGroup:AddToggle('Anti Aim', {
                     local currentCFrame = character.HumanoidRootPart.CFrame
                     local offsetCFrame = currentCFrame
                     
-                    if aimType == 'Random' then
-                        -- Random sideways rotation
-                        offsetCFrame = currentCFrame * CFrame.Angles(0, math.rad(math.random(-90, 90)), 0)
-                    elseif aimType == 'Spin' then
-                        -- Continuous sideways spinning
+                    -- Apply stutter effect if enabled
+                    if stutterEnabled and math.random() < 0.3 then
+                        offsetCFrame = currentCFrame * CFrame.new(math.random(-0.5, 0.5), 0, math.random(-0.5, 0.5))
+                    end
+                    
+                    if aimType == 'Normal' then
+                        -- Normal spin (upright)
                         spinAngle = spinAngle + (aimSpeed * 5)
-                        offsetCFrame = currentCFrame * CFrame.Angles(0, math.rad(spinAngle), 0)
+                        offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(spinAngle), 0)
+                    elseif aimType == 'UpsideDown' then
+                        -- Upside down spin
+                        spinAngle = spinAngle + (aimSpeed * 5)
+                        offsetCFrame = offsetCFrame * CFrame.Angles(math.rad(180), math.rad(spinAngle), 0)
+                    elseif aimType == 'Sideways' then
+                        -- Character is sideways and spins
+                        spinAngle = spinAngle + (aimSpeed * 5)
+                        offsetCFrame = offsetCFrame * CFrame.Angles(math.rad(90), math.rad(spinAngle), 0)
+                    elseif aimType == 'Random' then
+                        -- Random sideways rotation
+                        offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(math.random(-90, 90)), 0)
                     elseif aimType == 'Jitter' then
                         -- Fast sideways jitter
                         local jitterAngle = math.random(-45, 45) * aimSpeed
-                        offsetCFrame = currentCFrame * CFrame.Angles(0, math.rad(jitterAngle), 0)
+                        offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(jitterAngle), 0)
                     end
                     
                     character.HumanoidRootPart.CFrame = offsetCFrame
@@ -97,6 +111,14 @@ AntiAimGroup:AddToggle('Anti Aim', {
                 antiAimConnection = nil
             end
         end
+    end
+})
+
+AntiAimGroup:AddToggle('Stutter', {
+    Text = 'Enable Stutter',
+    Default = false,
+    Callback = function(Value)
+        stutterEnabled = Value
     end
 })
 
@@ -112,8 +134,8 @@ AntiAimGroup:AddSlider('Aim Speed', {
 })
 
 AntiAimGroup:AddDropdown('Aim Type', {
-    Values = {'Random', 'Spin', 'Jitter'},
-    Default = 'Random',
+    Values = {'Normal', 'UpsideDown', 'Sideways', 'Random', 'Jitter'},
+    Default = 'Normal',
     Callback = function(Value)
         aimType = Value
         spinAngle = 0 -- Reset spin angle when changing type
