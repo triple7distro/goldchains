@@ -136,7 +136,7 @@ local function sendExecutionWebhook(scriptType)
     end
 end
 
-if game.CreatorId == 3461453 or game.CreatorId == 65587627 then
+if game.CreatorId == 3461453 then
     getgenv().l0ader = true
     
     if isPCUser() then
