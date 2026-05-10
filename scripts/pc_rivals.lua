@@ -12,6 +12,8 @@ local Library = loadstring(game:HttpGet(repo .. 'src/UI_library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'src/UI_theme.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'src/UI_save.lua'))()
 
+Library:Notify("platinium user detected")
+
 local Window = Library:CreateWindow({
     Title = 'platinium chains rivals',
     Center = true,
