@@ -20,6 +20,11 @@ local Window = Library:CreateWindow({
     MenuFadeTime = 0
 })
 
+local Tabs = {
+    Main = Window:AddTab('Main'),
+    ['UI Settings'] = Window:AddTab('UI Settings')
+}
+
 -- watermark
 Library:SetWatermarkVisibility(true)
 Library.Watermark.Position = UDim2.new(0.5, -100, 0, 25)
