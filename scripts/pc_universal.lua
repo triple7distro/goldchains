@@ -58,6 +58,9 @@ local AntiAimGroup = Tabs.Player:AddLeftGroupbox('Anti Aim')
 
 local antiAimEnabled = false
 local antiAimConnection
+local aimSpeed = 1
+local aimType = 'Random'
+local spinAngle = 0
 
 AntiAimGroup:AddToggle('Anti Aim', {
     Text = 'Enable Anti Aim',
@@ -69,14 +72,21 @@ AntiAimGroup:AddToggle('Anti Aim', {
             antiAimConnection = game:GetService('RunService').Heartbeat:Connect(function()
                 local character = game.Players.LocalPlayer.Character
                 if character and character:FindFirstChild('Humanoid') and character:FindFirstChild('HumanoidRootPart') then
-                    local randomDirection = Vector3.new(
-                        math.random(-100, 100),
-                        0,
-                        math.random(-100, 100)
-                    ).unit
-                    
                     local currentCFrame = character.HumanoidRootPart.CFrame
-                    local offsetCFrame = currentCFrame * CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(math.random(-45, 45)), 0)
+                    local offsetCFrame = currentCFrame
+                    
+                    if aimType == 'Random' then
+                        -- Random sideways rotation
+                        offsetCFrame = currentCFrame * CFrame.Angles(0, math.rad(math.random(-90, 90)), 0)
+                    elseif aimType == 'Spin' then
+                        -- Continuous sideways spinning
+                        spinAngle = spinAngle + (aimSpeed * 5)
+                        offsetCFrame = currentCFrame * CFrame.Angles(0, math.rad(spinAngle), 0)
+                    elseif aimType == 'Jitter' then
+                        -- Fast sideways jitter
+                        local jitterAngle = math.random(-45, 45) * aimSpeed
+                        offsetCFrame = currentCFrame * CFrame.Angles(0, math.rad(jitterAngle), 0)
+                    end
                     
                     character.HumanoidRootPart.CFrame = offsetCFrame
                 end
@@ -91,12 +101,13 @@ AntiAimGroup:AddToggle('Anti Aim', {
 })
 
 AntiAimGroup:AddSlider('Aim Speed', {
-    Text = 'Aim Randomization Speed',
+    Text = 'Aim Speed',
     Default = 1,
     Min = 0.1,
     Max = 5,
     Rounding = 1,
     Callback = function(Value)
+        aimSpeed = Value
     end
 })
 
@@ -104,6 +115,8 @@ AntiAimGroup:AddDropdown('Aim Type', {
     Values = {'Random', 'Spin', 'Jitter'},
     Default = 'Random',
     Callback = function(Value)
+        aimType = Value
+        spinAngle = 0 -- Reset spin angle when changing type
     end
 })
 
