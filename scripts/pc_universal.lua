@@ -12,12 +12,6 @@ local Library = loadstring(game:HttpGet(repo .. 'src/UI_library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'src/UI_theme.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'src/UI_save.lua'))()
 
--- Test if library loaded
-if not Library then
-    game.Players.LocalPlayer:Kick("Failed to load UI library")
-    return
-end
-
 Library:Notify("platinium user detected")
 
 local Window = Library:CreateWindow({
@@ -28,24 +22,12 @@ local Window = Library:CreateWindow({
     MenuFadeTime = 0
 })
 
--- Test if window created
-if not Window then
-    game.Players.LocalPlayer:Kick("Failed to create UI window")
-    return
-end
-
 local Tabs = {
     Main = Window:AddTab('Main'),
-    Player = Window:AddTab('Player'),
     ['UI Settings'] = Window:AddTab('UI Settings')
 }
 
--- Test if tabs created
-if not Tabs.Main or not Tabs.Player or not Tabs['UI Settings'] then
-    game.Players.LocalPlayer:Kick("Failed to create UI tabs")
-    return
-end
-
+-- watermark
 Library:SetWatermarkVisibility(true)
 Library.Watermark.Position = UDim2.new(0.5, -100, 0, 25)
 
@@ -72,52 +54,7 @@ Library:OnUnload(function()
     Library:SetWatermarkVisibility(false)
 end)
 
-local AntiAimGroup = Tabs.Player:AddLeftGroupbox('Anti Aim')
-
-local antiAimEnabled = false
-local antiAimConnection
-local aimSpeed = 1
-
-AntiAimGroup:AddToggle('Anti Aim', {
-    Text = 'Enable Anti Aim',
-    Default = false,
-    Func = function(Value)
-        antiAimEnabled = Value
-        
-        if antiAimEnabled then
-            antiAimConnection = game:GetService('RunService').Heartbeat:Connect(function()
-                local character = game.Players.LocalPlayer.Character
-                if character and character:FindFirstChild('Humanoid') and character:FindFirstChild('HumanoidRootPart') then
-                    local currentCFrame = character.HumanoidRootPart.CFrame
-                    
-                    -- Jitter effect with speed control
-                    local jitterAngle = math.random(-15, 15) * aimSpeed
-                    local offsetCFrame = currentCFrame * CFrame.Angles(0, math.rad(jitterAngle), 0)
-                    
-                    character.HumanoidRootPart.CFrame = offsetCFrame
-                end
-            end)
-        else
-            if antiAimConnection then
-                antiAimConnection:Disconnect()
-                antiAimConnection = nil
-            end
-        end
-    end
-})
-
-AntiAimGroup:AddSlider('Aim Speed', {
-    Text = 'Aim Speed',
-    Default = 1,
-    Min = 0.1,
-    Max = 5,
-    Rounding = 1,
-    Callback = function(Value)
-        aimSpeed = Value
-    end
-})
-
-
+-- ui settings
 local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
 
 MenuGroup:AddButton('Unload', function() Library:Unload() end)
@@ -125,12 +62,13 @@ MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'Insert'
 
 Library.ToggleKeybind = Options.MenuKeybind
 
+-- theme and save settings
 ThemeManager:SetLibrary(Library)
 SaveManager:SetLibrary(Library)
 SaveManager:IgnoreThemeSettings()
 SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
-ThemeManager:SetFolder('pc_universal')
-SaveManager:SetFolder('pc_universal')
+ThemeManager:SetFolder('gc_universal')
+SaveManager:SetFolder('gc_universal')
 SaveManager:BuildConfigSection(Tabs['UI Settings'])
 ThemeManager:ApplyToTab(Tabs['UI Settings'])
 SaveManager:LoadAutoloadConfig()
