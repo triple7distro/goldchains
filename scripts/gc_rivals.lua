@@ -3,8 +3,6 @@ if not getgenv().l0ader then
     return
 end
 
--- DO NOT TOUCH ANYTHING ABOVE THIS, ITS FINISHED AND FUNCTIONAL
--- START OF THE ACTUAL SCRIPT BELOW
 
 local repo = 'https://raw.githubusercontent.com/triple7distro/goldchains/main/'
 
@@ -27,7 +25,6 @@ local Tabs = {
     ['UI Settings'] = Window:AddTab('UI Settings')
 }
 
--- watermark
 Library:SetWatermarkVisibility(true)
 Library.Watermark.Position = UDim2.new(0.5, -100, 0, 25)
 
@@ -54,7 +51,6 @@ Library:OnUnload(function()
     Library:SetWatermarkVisibility(false)
 end)
 
--- ui settings
 local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
 
 MenuGroup:AddButton('Unload', function() Library:Unload() end)
@@ -62,7 +58,6 @@ MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'Insert'
 
 Library.ToggleKeybind = Options.MenuKeybind
 
--- theme and save settings
 ThemeManager:SetLibrary(Library)
 SaveManager:SetLibrary(Library)
 SaveManager:IgnoreThemeSettings()
