@@ -12,6 +12,12 @@ local Library = loadstring(game:HttpGet(repo .. 'src/UI_library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'src/UI_theme.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'src/UI_save.lua'))()
 
+-- Test if library loaded
+if not Library then
+    game.Players.LocalPlayer:Kick("Failed to load UI library")
+    return
+end
+
 Library:Notify("platinium user detected")
 
 local Window = Library:CreateWindow({
@@ -22,11 +28,23 @@ local Window = Library:CreateWindow({
     MenuFadeTime = 0
 })
 
+-- Test if window created
+if not Window then
+    game.Players.LocalPlayer:Kick("Failed to create UI window")
+    return
+end
+
 local Tabs = {
     Main = Window:AddTab('Main'),
     Player = Window:AddTab('Player'),
     ['UI Settings'] = Window:AddTab('UI Settings')
 }
+
+-- Test if tabs created
+if not Tabs.Main or not Tabs.Player or not Tabs['UI Settings'] then
+    game.Players.LocalPlayer:Kick("Failed to create UI tabs")
+    return
+end
 
 Library:SetWatermarkVisibility(true)
 Library.Watermark.Position = UDim2.new(0.5, -100, 0, 25)
@@ -59,14 +77,11 @@ local AntiAimGroup = Tabs.Player:AddLeftGroupbox('Anti Aim')
 local antiAimEnabled = false
 local antiAimConnection
 local aimSpeed = 1
-local aimType = 'Normal'
-local spinAngle = 0
-local stutterEnabled = false
 
 AntiAimGroup:AddToggle('Anti Aim', {
     Text = 'Enable Anti Aim',
     Default = false,
-    Callback = function(Value)
+    Func = function(Value)
         antiAimEnabled = Value
         
         if antiAimEnabled then
@@ -74,33 +89,10 @@ AntiAimGroup:AddToggle('Anti Aim', {
                 local character = game.Players.LocalPlayer.Character
                 if character and character:FindFirstChild('Humanoid') and character:FindFirstChild('HumanoidRootPart') then
                     local currentCFrame = character.HumanoidRootPart.CFrame
-                    local offsetCFrame = currentCFrame
                     
-                    -- Apply stutter effect if enabled
-                    if stutterEnabled and math.random() < 0.3 then
-                        offsetCFrame = currentCFrame * CFrame.new(math.random(-0.2, 0.2), 0, math.random(-0.2, 0.2))
-                    end
-                    
-                    if aimType == 'Normal' then
-                        -- Normal spin (upright) - subtle rotation
-                        spinAngle = spinAngle + (aimSpeed * 2)
-                        offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(spinAngle), 0)
-                    elseif aimType == 'UpsideDown' then
-                        -- Upside down spin - subtle flip
-                        spinAngle = spinAngle + (aimSpeed * 2)
-                        offsetCFrame = offsetCFrame * CFrame.Angles(math.rad(15), math.rad(spinAngle), 0) -- Small tilt instead of full flip
-                    elseif aimType == 'Sideways' then
-                        -- Character is sideways and spins - subtle tilt
-                        spinAngle = spinAngle + (aimSpeed * 2)
-                        offsetCFrame = offsetCFrame * CFrame.Angles(math.rad(30), math.rad(spinAngle), 0) -- 30 degree tilt instead of 90
-                    elseif aimType == 'Random' then
-                        -- Random sideways rotation - smaller range
-                        offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(math.random(-30, 30)), 0)
-                    elseif aimType == 'Jitter' then
-                        -- Fast sideways jitter - smaller range
-                        local jitterAngle = math.random(-15, 15) * aimSpeed
-                        offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(jitterAngle), 0)
-                    end
+                    -- Jitter effect with speed control
+                    local jitterAngle = math.random(-15, 15) * aimSpeed
+                    local offsetCFrame = currentCFrame * CFrame.Angles(0, math.rad(jitterAngle), 0)
                     
                     character.HumanoidRootPart.CFrame = offsetCFrame
                 end
@@ -111,14 +103,6 @@ AntiAimGroup:AddToggle('Anti Aim', {
                 antiAimConnection = nil
             end
         end
-    end
-})
-
-AntiAimGroup:AddToggle('Stutter', {
-    Text = 'Enable Stutter',
-    Default = false,
-    Callback = function(Value)
-        stutterEnabled = Value
     end
 })
 
@@ -133,14 +117,6 @@ AntiAimGroup:AddSlider('Aim Speed', {
     end
 })
 
-AntiAimGroup:AddDropdown('Aim Type', {
-    Values = {'Normal', 'UpsideDown', 'Sideways', 'Random', 'Jitter'},
-    Default = 'Normal',
-    Callback = function(Value)
-        aimType = Value
-        spinAngle = 0 -- Reset spin angle when changing type
-    end
-})
 
 local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
 
