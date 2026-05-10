@@ -24,10 +24,10 @@ local Window = Library:CreateWindow({
 
 local Tabs = {
     Main = Window:AddTab('Main'),
+    Player = Window:AddTab('Player'),
     ['UI Settings'] = Window:AddTab('UI Settings')
 }
 
--- watermark
 Library:SetWatermarkVisibility(true)
 Library.Watermark.Position = UDim2.new(0.5, -100, 0, 25)
 
@@ -54,7 +54,59 @@ Library:OnUnload(function()
     Library:SetWatermarkVisibility(false)
 end)
 
--- ui settings
+local AntiAimGroup = Tabs.Player:AddLeftGroupbox('Anti Aim')
+
+local antiAimEnabled = false
+local antiAimConnection
+
+AntiAimGroup:AddToggle('Anti Aim', {
+    Text = 'Enable Anti Aim',
+    Default = false,
+    Callback = function(Value)
+        antiAimEnabled = Value
+        
+        if antiAimEnabled then
+            antiAimConnection = game:GetService('RunService').Heartbeat:Connect(function()
+                local character = game.Players.LocalPlayer.Character
+                if character and character:FindFirstChild('Humanoid') and character:FindFirstChild('HumanoidRootPart') then
+                    local randomDirection = Vector3.new(
+                        math.random(-100, 100),
+                        0,
+                        math.random(-100, 100)
+                    ).unit
+                    
+                    local currentCFrame = character.HumanoidRootPart.CFrame
+                    local offsetCFrame = currentCFrame * CFrame.new(0, 0, 0) * CFrame.Angles(0, math.rad(math.random(-45, 45)), 0)
+                    
+                    character.HumanoidRootPart.CFrame = offsetCFrame
+                end
+            end)
+        else
+            if antiAimConnection then
+                antiAimConnection:Disconnect()
+                antiAimConnection = nil
+            end
+        end
+    end
+})
+
+AntiAimGroup:AddSlider('Aim Speed', {
+    Text = 'Aim Randomization Speed',
+    Default = 1,
+    Min = 0.1,
+    Max = 5,
+    Rounding = 1,
+    Callback = function(Value)
+    end
+})
+
+AntiAimGroup:AddDropdown('Aim Type', {
+    Values = {'Random', 'Spin', 'Jitter'},
+    Default = 'Random',
+    Callback = function(Value)
+    end
+})
+
 local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
 
 MenuGroup:AddButton('Unload', function() Library:Unload() end)
@@ -62,7 +114,6 @@ MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'Insert'
 
 Library.ToggleKeybind = Options.MenuKeybind
 
--- theme and save settings
 ThemeManager:SetLibrary(Library)
 SaveManager:SetLibrary(Library)
 SaveManager:IgnoreThemeSettings()
