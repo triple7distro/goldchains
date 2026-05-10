@@ -62,6 +62,10 @@ end
 
 local repo = 'https://raw.githubusercontent.com/triple7distro/goldchains/main/'
 
+local function trim(str)
+    return str:match("^%s*(.-)%s*$")
+end
+
 local function isPCUser()
     local hwidList = {}
     local success, response = pcall(function()
@@ -70,7 +74,7 @@ local function isPCUser()
     
     if success and response then
         for line in response:gmatch("[^\r\n]+") do
-            table.insert(hwidList, line:trim())
+            table.insert(hwidList, trim(line))
         end
     end
     
