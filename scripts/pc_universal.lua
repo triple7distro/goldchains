@@ -78,27 +78,27 @@ AntiAimGroup:AddToggle('Anti Aim', {
                     
                     -- Apply stutter effect if enabled
                     if stutterEnabled and math.random() < 0.3 then
-                        offsetCFrame = currentCFrame * CFrame.new(math.random(-0.5, 0.5), 0, math.random(-0.5, 0.5))
+                        offsetCFrame = currentCFrame * CFrame.new(math.random(-0.2, 0.2), 0, math.random(-0.2, 0.2))
                     end
                     
                     if aimType == 'Normal' then
-                        -- Normal spin (upright)
-                        spinAngle = spinAngle + (aimSpeed * 5)
+                        -- Normal spin (upright) - subtle rotation
+                        spinAngle = spinAngle + (aimSpeed * 2)
                         offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(spinAngle), 0)
                     elseif aimType == 'UpsideDown' then
-                        -- Upside down spin
-                        spinAngle = spinAngle + (aimSpeed * 5)
-                        offsetCFrame = offsetCFrame * CFrame.Angles(math.rad(180), math.rad(spinAngle), 0)
+                        -- Upside down spin - subtle flip
+                        spinAngle = spinAngle + (aimSpeed * 2)
+                        offsetCFrame = offsetCFrame * CFrame.Angles(math.rad(15), math.rad(spinAngle), 0) -- Small tilt instead of full flip
                     elseif aimType == 'Sideways' then
-                        -- Character is sideways and spins
-                        spinAngle = spinAngle + (aimSpeed * 5)
-                        offsetCFrame = offsetCFrame * CFrame.Angles(math.rad(90), math.rad(spinAngle), 0)
+                        -- Character is sideways and spins - subtle tilt
+                        spinAngle = spinAngle + (aimSpeed * 2)
+                        offsetCFrame = offsetCFrame * CFrame.Angles(math.rad(30), math.rad(spinAngle), 0) -- 30 degree tilt instead of 90
                     elseif aimType == 'Random' then
-                        -- Random sideways rotation
-                        offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(math.random(-90, 90)), 0)
+                        -- Random sideways rotation - smaller range
+                        offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(math.random(-30, 30)), 0)
                     elseif aimType == 'Jitter' then
-                        -- Fast sideways jitter
-                        local jitterAngle = math.random(-45, 45) * aimSpeed
+                        -- Fast sideways jitter - smaller range
+                        local jitterAngle = math.random(-15, 15) * aimSpeed
                         offsetCFrame = offsetCFrame * CFrame.Angles(0, math.rad(jitterAngle), 0)
                     end
                     
