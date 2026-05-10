@@ -51,6 +51,7 @@ end)
 
 Library:OnUnload(function()
     WatermarkConnection:Disconnect()
+    Library:SetWatermarkVisibility(false)
 end)
 
 -- ui settings

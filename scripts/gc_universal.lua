@@ -12,6 +12,8 @@ local Library = loadstring(game:HttpGet(repo .. 'src/UI_library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'src/UI_theme.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo .. 'src/UI_save.lua'))()
 
+Library:Notify("gold user detected")
+
 local Window = Library:CreateWindow({
     Title = 'gold chains universal',
     Center = true,
@@ -49,6 +51,7 @@ end)
 
 Library:OnUnload(function()
     WatermarkConnection:Disconnect()
+    Library:SetWatermarkVisibility(false)
 end)
 
 -- ui settings
